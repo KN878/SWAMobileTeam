@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">SWA Mobile Team</string>
+
+    <!-- Authorization -->
+    <string name="text_username">Username</string>
+    <string name="text_password">Password</string>
+    <string name="msg_wrong_username">Wrong username or password</string>
+    <string name="msg_no_username">Enter username</string>
+    <string name="msg_no_password">Enter password</string>
+    <string name="text_sign_in">Sign in</string>
+    <string name="text_contact_operator">Contact control operator</string>
+    <string name="text_forgot_password">Forgot your password?</string>
+    <string name="text_restore"><b>Restore</b></string>
+    <string name="text_sign_up"><u>SIGN UP</u></string>
 </resources>
