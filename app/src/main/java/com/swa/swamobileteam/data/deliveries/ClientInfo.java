@@ -1,0 +1,32 @@
+package com.swa.swamobileteam.data.deliveries;
+
+/**
+ * Information about a client a parcel is intended to be delivered to.
+ */
+public class ClientInfo {
+    private String firstName;
+    private String lastName;
+
+    /**
+     * Phone number string with country code.
+     */
+    private String phoneNumber;
+
+    public ClientInfo(String firstName, String lastName, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+}
