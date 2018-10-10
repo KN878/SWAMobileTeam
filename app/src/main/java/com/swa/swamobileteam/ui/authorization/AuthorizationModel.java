@@ -1,7 +1,7 @@
 package com.swa.swamobileteam.ui.authorization;
 
-import com.swa.swamobileteam.data.UserAuthenticationRepository;
-import com.swa.swamobileteam.data.UserAuthenticationRepositoryImpl;
+import com.swa.swamobileteam.data.authentication.UserAuthenticationRepository;
+import com.swa.swamobileteam.data.authentication.UserAuthenticationRepositoryImpl;
 
 import io.reactivex.Completable;
 

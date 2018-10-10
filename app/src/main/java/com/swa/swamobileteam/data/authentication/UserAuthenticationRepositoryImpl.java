@@ -1,4 +1,4 @@
-package com.swa.swamobileteam.data;
+package com.swa.swamobileteam.data.authentication;
 
 import io.reactivex.Completable;
 
