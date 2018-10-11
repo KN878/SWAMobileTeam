@@ -25,8 +25,8 @@ public class DeliveryDetailsRepositoryImpl implements DeliveryDetailsRepository 
             e.printStackTrace();
         }
 
-        Location location = new Location(120.520664584, 123.15499938);
-        Address address = new Address("New York, Baker Street, 221b", location);
+        Location location = new Location(55.747371, 48.744381);
+        Address address = new Address("Innopolis, Baker Street, 221b", location);
 
 
         DeliveryPeriod deliveryPeriod = new DeliveryPeriod(startDate, finishDate);
@@ -35,7 +35,7 @@ public class DeliveryDetailsRepositoryImpl implements DeliveryDetailsRepository 
         ParcelInfo.Dimensions dimensions = new ParcelInfo.Dimensions(10.0, 20.0, 30.0);
         ParcelInfo parcelInfo = new ParcelInfo(100.0, dimensions);
         DeliveryInfo deliveryInfo = new DeliveryInfo("12345", parcelInfo, clientInfo, address, deliveryPeriod, false);
-        return null;
+        return Single.just(deliveryInfo);
     }
 
     @Override
