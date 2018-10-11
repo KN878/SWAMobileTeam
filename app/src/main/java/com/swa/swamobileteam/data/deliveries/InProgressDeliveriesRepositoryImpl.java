@@ -1,7 +1,6 @@
 package com.swa.swamobileteam.data.deliveries;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 
@@ -89,13 +88,12 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
         Address address2 = new Address("Kemerovo, Centralnaya, 10", location5);
         Address address1 = new Address("Kemerovo, Centralnaya, 10", location6);
 
-
         DeliveryPeriod deliveryPeriod1 = new DeliveryPeriod(startDate1, finishDate1);
         DeliveryPeriod deliveryPeriod2 = new DeliveryPeriod(startDate2, finishDate2);
         DeliveryPeriod deliveryPeriod3 = new DeliveryPeriod(startDate3, finishDate3);
         DeliveryPeriod deliveryPeriod4 = new DeliveryPeriod(startDate4, finishDate4);
         DeliveryPeriod deliveryPeriod5 = new DeliveryPeriod(startDate5, finishDate5);
-        DeliveryPeriod deliveryPeriod6 = new DeliveryPeriod(startDate5, finishDate6);
+        DeliveryPeriod deliveryPeriod6 = new DeliveryPeriod(startDate6, finishDate6);
 
         DeliveriesListItem item1 = new DeliveriesListItem("1024843523", address1,
                 deliveryPeriod1, true, 6.1);
@@ -114,13 +112,6 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
 
     @Override
     public Completable markDeliveryAsInProgress(@NonNull String deliveryID) {
-        DeliveryScheduleRepositoryImpl deliveryScheduleRepository = new DeliveryScheduleRepositoryImpl();
-        List<DeliveriesListItem> schedule = deliveryScheduleRepository.getDeliveriesSchedule(100, 100).blockingGet();
-        for (DeliveriesListItem item : schedule) {
-            if (item.getId().equals(deliveryID)) {
-                //item.setInProgress = true
-            }
-        }
         return Completable.complete();
     }
 }
