@@ -5,6 +5,10 @@ import io.reactivex.Completable;
 public class UserAuthenticationRepositoryImpl implements UserAuthenticationRepository {
     @Override
     public Completable authenticate(String login, String password) {
-        return null; // TODO for rozalia: implement with 2 test cases, one for success, one for fail
+        if (login.equals("login") && password.equals("password")) {
+            return Completable.complete();
+        } else {
+            return Completable.error(new Error("Incorrect Login or Password"));
+        }
     }
 }
