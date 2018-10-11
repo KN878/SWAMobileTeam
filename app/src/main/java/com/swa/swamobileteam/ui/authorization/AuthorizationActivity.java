@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -71,6 +72,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoLogin() {
         loginWrapper.setError(getString(R.string.msg_no_username));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
         passwordWrapper.setErrorEnabled(true);
         passwordWrapper.setError(null);
     }
@@ -78,6 +80,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoPassword() {
         passwordWrapper.setError(getString(R.string.msg_no_password));
+        passwordWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
         loginWrapper.setErrorEnabled(true);
         loginWrapper.setError(null);
     }
@@ -86,6 +89,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     public void showWrongLogin() {
         passwordWrapper.setError(" ");
         loginWrapper.setError(getString(R.string.msg_wrong_username));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
     }
 
     @Override
