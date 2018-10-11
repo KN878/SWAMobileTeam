@@ -4,7 +4,7 @@ public class ParcelInfo {
     /**
      * Information about parcel's size in meters.
      */
-    public class Dimensions {
+    public static class Dimensions {
         private Double x;
         private Double y;
         private Double z;
