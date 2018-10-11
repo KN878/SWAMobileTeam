@@ -3,6 +3,7 @@ package com.swa.swamobileteam.ui.deliveryGroups;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
@@ -42,5 +43,11 @@ public interface DeliveryGroupsContract {
          * @param deliveryID identifier of the delivery.
          */
         Completable markDeliveryAsInProgress(@NonNull String deliveryID);
+
+        /**
+         * Returns minimum the time (in seconds) required to drive to given destination.
+         * @param location Location to calculate ETA to.
+         */
+        Single<Double> getETA(@NonNull Location location);
     }
 }
