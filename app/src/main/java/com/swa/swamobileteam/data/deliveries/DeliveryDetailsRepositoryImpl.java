@@ -28,7 +28,6 @@ public class DeliveryDetailsRepositoryImpl implements DeliveryDetailsRepository 
         Location location = new Location(55.747371, 48.744381);
         Address address = new Address("Innopolis, Baker Street, 221b", location);
 
-
         DeliveryPeriod deliveryPeriod = new DeliveryPeriod(startDate, finishDate);
         ClientInfo clientInfo = new ClientInfo("Rozaliya", "Amirova", "+79600308025");
 
