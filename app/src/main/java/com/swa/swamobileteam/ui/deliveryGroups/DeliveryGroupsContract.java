@@ -10,6 +10,7 @@ import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -49,19 +50,6 @@ public interface DeliveryGroupsContract {
     }
 
     interface Model extends BaseModel {
-        /**
-         * Returns available delivery schedule.
-         * @param offset Offset, from which the returned list should start, needed for pagination.
-         *               If null, list will be returned from its beginning.
-         * @param limit Maximum amount of items to receive, needed for pagination.
-         */
-        Single<List<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset,
-                                                               @Nullable Integer limit);
-
-        /**
-         * Returns deliveries that are marked as being currently in progress.
-         */
-        Single<List<DeliveriesListItem>> getInProgressDeliveries();
 
         /**
          * Marks the desired delivery as being in progress.
@@ -74,6 +62,42 @@ public interface DeliveryGroupsContract {
          * @param location Location to calculate ETA to.
          */
         Single<Double> getETA(@NonNull Location location);
+
+        /**
+         * Refreshes list of scheduled deliveries
+         */
+        public Completable refreshScheduledDeliveries();
+
+        /**
+         * Returns delivery item given its index
+         * @param index of delivery item
+         * @return delivery iten on given index
+         */
+        DeliveriesListItem  getScheduledDeliveryListItem(int index);
+
+        /**
+         * Refreshes list of scheduled deliveries
+         */
+        public Completable refreshInProgressDeliveries();
+
+        /**
+         * Returns delivery item given its index
+         * @param index of delivery item
+         * @return delivery iten on given index
+         */
+        DeliveriesListItem  getInProgressDeliveryListItem(int index);
+
+        /**
+         * Method loads deliveries in progress from repository and returns their count
+         * @return
+         */
+        Single<Integer> loadInProgressDeliveries();
+
+        /**
+         * Method loads scheduled deliveries from repository and returns their count
+         * @return
+         */
+        Single<Integer> loadScheduledDeliveries();
     }
 
     interface DeliveryView extends BaseView{

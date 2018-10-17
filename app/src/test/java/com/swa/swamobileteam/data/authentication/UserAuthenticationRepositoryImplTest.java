@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class UserAuthenticationRepositoryImplTest {
 
-
     @Test
     public void authenticate() {
         TestObserver<Void> observer = new TestObserver<Void>();
@@ -24,4 +23,5 @@ public class UserAuthenticationRepositoryImplTest {
         repository.authenticate("wronglogin", "wrongpassword").subscribe(observer);
         observer.assertComplete();
     }
+
 }
