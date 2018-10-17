@@ -37,8 +37,14 @@ public class InProgressDeliveriesRepositoryImplTest {
     @Test
     public void getDeliveryListItem() {
         ArrayList<DeliveriesListItem> generatedData = generateData();
-        DeliveryScheduleRepositoryImpl repository = new DeliveryScheduleRepositoryImpl();
-        TestObserver<DeliveriesListItem> observer = repository.getDeliveryListItem(0).test().assertSubscribed();
+        InProgressDeliveriesRepositoryImpl repository = new InProgressDeliveriesRepositoryImpl();
+        assertNotNull(repository.getDeliveryListItem(0));
+    }
+
+    @Test
+    public void loadDeliveries() {
+        InProgressDeliveriesRepositoryImpl repository = new InProgressDeliveriesRepositoryImpl();
+        TestObserver<Integer> observer = repository.loadDeliveries().test().assertSubscribed();
     }
 
     private ArrayList<DeliveriesListItem> generateData() {

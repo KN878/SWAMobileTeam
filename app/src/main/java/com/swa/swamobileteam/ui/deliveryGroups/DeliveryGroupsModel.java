@@ -44,7 +44,7 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     }
 
     @Override
-    public Single<DeliveriesListItem> getScheduledDeliveryListItem(int index) {
+    public DeliveriesListItem getScheduledDeliveryListItem(int index) {
         return scheduleRepository.getDeliveryListItem(index);
     }
 
@@ -54,7 +54,17 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     }
 
     @Override
-    public Single<DeliveriesListItem> getInProgressDeliveryListItem(int index) {
-        return scheduleRepository.getDeliveryListItem(index);
+    public DeliveriesListItem getInProgressDeliveryListItem(int index) {
+        return inProgressDeliveriesRepository.getDeliveryListItem(index);
+    }
+
+    @Override
+    public Single<Integer> loadInProgressDeliveries() {
+        return inProgressDeliveriesRepository.loadDeliveries();
+    }
+
+    @Override
+    public Single<Integer> loadScheduledDeliveries() {
+        return scheduleRepository.loadDeliveries();
     }
 }

@@ -30,8 +30,14 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
     }
 
     @Override
-    public Single<DeliveriesListItem> getDeliveryListItem(int index) {
-        return Single.just(deliveriesListItems.get(index));
+    public Single<Integer> loadDeliveries() {
+        deliveriesListItems = generateData();
+        return Single.just(deliveriesListItems.size());
+    }
+
+    @Override
+    public DeliveriesListItem getDeliveryListItem(int index) {
+        return deliveriesListItems.get(index);
     }
 
     @Override

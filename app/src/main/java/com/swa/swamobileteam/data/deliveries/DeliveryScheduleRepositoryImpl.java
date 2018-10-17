@@ -32,8 +32,14 @@ public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepositor
     }
 
     @Override
-    public Single<DeliveriesListItem> getDeliveryListItem(int index) {
-        return Single.just(deliveriesListItems.get(index));
+    public Single<Integer> loadDeliveries() {
+        deliveriesListItems = generateData();
+        return Single.just(deliveriesListItems.size());
+    }
+
+    @Override
+    public DeliveriesListItem getDeliveryListItem(int index) {
+        return deliveriesListItems.get(index);
     }
 
     private ArrayList<DeliveriesListItem> generateData() {

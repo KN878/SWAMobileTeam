@@ -48,7 +48,7 @@ public interface DeliveryGroupsContract {
          * @param index of delivery item
          * @return delivery iten on given index
          */
-        Single<DeliveriesListItem>  getScheduledDeliveryListItem(int index);
+        DeliveriesListItem  getScheduledDeliveryListItem(int index);
 
         /**
          * Refreshes list of scheduled deliveries
@@ -60,6 +60,18 @@ public interface DeliveryGroupsContract {
          * @param index of delivery item
          * @return delivery iten on given index
          */
-        Single<DeliveriesListItem>  getInProgressDeliveryListItem(int index);
+        DeliveriesListItem  getInProgressDeliveryListItem(int index);
+
+        /**
+         * Method loads deliveries in progress from repository and returns their count
+         * @return
+         */
+        Single<Integer> loadInProgressDeliveries();
+
+        /**
+         * Method loads scheduled deliveries from repository and returns their count
+         * @return
+         */
+        Single<Integer> loadScheduledDeliveries();
     }
 }

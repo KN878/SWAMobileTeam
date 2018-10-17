@@ -27,5 +27,11 @@ public interface InProgressDeliveriesRepository {
      * @param index of delivery item
      * @return delivery iten on given index
      */
-    Single<DeliveriesListItem> getDeliveryListItem(int index);
+    DeliveriesListItem getDeliveryListItem(int index);
+
+    /**
+     * Method loads deliveries from repository and returns their count
+     * @return
+     */
+    Single<Integer> loadDeliveries();
 }

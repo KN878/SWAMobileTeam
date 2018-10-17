@@ -30,7 +30,7 @@ public class DeliveryScheduleRepositoryImplTest {
     public void getDeliveryListItem() {
         ArrayList<DeliveriesListItem> generatedData = generateData();
         DeliveryScheduleRepositoryImpl repository = new DeliveryScheduleRepositoryImpl();
-        TestObserver<DeliveriesListItem> observer = repository.getDeliveryListItem(0).test().assertSubscribed();
+        assertNotNull(repository.getDeliveryListItem(0));
     }
 
     private ArrayList<DeliveriesListItem> generateData() {
@@ -122,5 +122,11 @@ public class DeliveryScheduleRepositoryImplTest {
                 deliveryPeriod6, true, 10.5);
 
         return new ArrayList<DeliveriesListItem>(Arrays.asList(item1, item2, item3, item4, item5, item6));
+    }
+
+    @Test
+    public void loadDeliveries() {
+        DeliveryScheduleRepositoryImpl repository = new DeliveryScheduleRepositoryImpl();
+        TestObserver<Integer> observer = repository.loadDeliveries().test().assertSubscribed();
     }
 }
