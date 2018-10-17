@@ -6,6 +6,7 @@ import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -14,13 +15,37 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesRepository {
-    @Override
-    public Single<List<DeliveriesListItem>> getInProgressDeliveries() {
-        List<DeliveriesListItem> deliveries = generateData();
-        return Single.just(deliveries);
+    ArrayList<DeliveriesListItem> deliveriesListItems = new ArrayList<DeliveriesListItem>();
+    boolean isListUpdated = true;
+
+    public InProgressDeliveriesRepositoryImpl() {
+        deliveriesListItems = generateData();
     }
 
-    private List<DeliveriesListItem> generateData() {
+    @Override
+    public Completable refresh() {
+        isListUpdated = !isListUpdated;
+        deliveriesListItems = generateData();
+        return Completable.complete();
+    }
+
+    @Override
+    public Single<Integer> loadDeliveries() {
+        deliveriesListItems = generateData();
+        return Single.just(deliveriesListItems.size());
+    }
+
+    @Override
+    public DeliveriesListItem getDeliveryListItem(int index) {
+        return deliveriesListItems.get(index);
+    }
+
+    @Override
+    public Completable markDeliveryAsInProgress(@NonNull String deliveryID) {
+        return Completable.complete();
+    }
+
+    private ArrayList<DeliveriesListItem> generateData() {
 
         String stringStartDate1 = "10:09:2018, 23:37";
         String stringEndDate1 = "11:09:2018, 09:10";
@@ -107,11 +132,11 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
                 deliveryPeriod5, true, 8.5);
         DeliveriesListItem item6 = new DeliveriesListItem("1024843528", address6,
                 deliveryPeriod6, true, 10.5);
-        return Arrays.asList(item1, item2, item3, item4, item5, item6);
+        if (isListUpdated) {
+            return new ArrayList<DeliveriesListItem>(Arrays.asList(item1, item2, item3, item4, item5));
+        }
+        return new ArrayList<DeliveriesListItem>(Arrays.asList(item1, item2, item3, item4, item5, item6));
     }
 
-    @Override
-    public Completable markDeliveryAsInProgress(@NonNull String deliveryID) {
-        return Completable.complete();
-    }
+
 }

@@ -1,17 +1,30 @@
 package com.swa.swamobileteam.data.deliveries;
 
 import com.swa.swamobileteam.ui.delivery.DeliveryInfo;
+import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
+
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.reactivex.Single;
+import io.reactivex.observers.TestObserver;
 
-public class DeliveryDetailsRepositoryImpl implements DeliveryDetailsRepository {
-    @Override
-    public Single<DeliveryInfo> getDeliveryInfo(String deliveryID) {
+import static org.junit.Assert.*;
 
+public class DeliveryDetailsRepositoryImplTest {
+
+    @Test
+    public void getDeliveryInfo() {
+        DeliveryDetailsRepository repository = new DeliveryDetailsRepositoryImpl();
+        TestObserver<DeliveryInfo> observer = repository.getDeliveryInfo("12343242").test().assertSubscribed();
+    }
+
+    @Test
+    public void getRemainingTime() {
         String stringStartDate = "12:09:2018, 10:00";
         String stringEndDate = "12:09:2018, 11:30";
         Date startDate = new Date();
@@ -29,16 +42,9 @@ public class DeliveryDetailsRepositoryImpl implements DeliveryDetailsRepository 
         Address address = new Address("Innopolis, Baker Street, 221b", location);
 
         DeliveryPeriod deliveryPeriod = new DeliveryPeriod(startDate, finishDate);
-        ClientInfo clientInfo = new ClientInfo("Rozaliya", "Amirova", "+79600308025");
 
-        ParcelInfo.Dimensions dimensions = new ParcelInfo.Dimensions(10.0, 20.0, 30.0);
-        ParcelInfo parcelInfo = new ParcelInfo(100.0, dimensions);
-        DeliveryInfo deliveryInfo = new DeliveryInfo("12345", parcelInfo, clientInfo, address, deliveryPeriod, false);
-        return Single.just(deliveryInfo);
-    }
-
-    @Override
-    public Double getRemainingTime(DeliveryPeriod period) {
-        return 10.0;
+        DeliveryDetailsRepository repository = new DeliveryDetailsRepositoryImpl();
+        double remainingTime = repository.getRemainingTime(deliveryPeriod);
+        assertEquals(10.0, remainingTime);
     }
 }
