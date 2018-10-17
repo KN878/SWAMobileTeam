@@ -2,15 +2,26 @@ package com.swa.swamobileteam.ui.authorization;
 
 import android.support.annotation.Nullable;
 
+import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
+
 import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class AuthorizationPresenter implements AuthorizationContract.Presenter {
 
     @Nullable
     private AuthorizationContract.View view;
+    private AuthorizationContract.Model model;
+    private CompositeDisposable disposable = new CompositeDisposable();
+
 
     @Inject
-    AuthorizationPresenter() {}
+    AuthorizationPresenter(AuthorizationContract.Model model) {
+        this.model = model;
+    }
 
     @Override
     public void login() {
@@ -22,7 +33,14 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
             } else if (password.isEmpty()) {
                 view.showNoPassword();
             } else {
-                view.showWrongLogin();
+                disposable.add(model.authenticate(login, password)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(()->
+                                        view.successLogin(),
+                                (error) ->
+                                        view.showWrongLogin()
+                        ));
             }
         }
     }

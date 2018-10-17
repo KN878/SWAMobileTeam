@@ -5,10 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.swa.swamobileteam.R;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
@@ -20,14 +23,19 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-public class NewDeliveriesFragment extends Fragment {
+public class NewDeliveriesFragment extends Fragment implements DeliveryGroupsContract.View {
 
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recycler_deliveries)
     RecyclerView deliveries;
+    @BindView(R.id.progress_bar_center)
+    ProgressBar loadingBar;
+    @BindView(R.id.text_no_deliveries)
+    TextView textNoDeliveries;
 
     private Unbinder unbinder;
+    private DeliveriesAdapter adapter;
 
     @Inject
     DeliveryGroupsContract.Presenter presenter;
@@ -44,6 +52,8 @@ public class NewDeliveriesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
         AndroidSupportInjection.inject(this);
+        presenter.attachView(this, true);
+        setRecyclerView();
     }
 
     @Override
@@ -61,5 +71,25 @@ public class NewDeliveriesFragment extends Fragment {
         presenter.detachView();
     }
 
+    private void setRecyclerView(){
+        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        deliveries.setLayoutManager(lm);
+        adapter = new DeliveriesAdapter(presenter);
+        deliveries.setAdapter(adapter);
+    }
 
+    @Override
+    public void hideLoadingBar() {
+        loadingBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showNoDeliveries() {
+        textNoDeliveries.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideNoDeliveries() {
+        textNoDeliveries.setVisibility(View.GONE);
+    }
 }

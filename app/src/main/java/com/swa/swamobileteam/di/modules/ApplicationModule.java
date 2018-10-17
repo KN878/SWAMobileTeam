@@ -7,7 +7,6 @@ import com.swa.swamobileteam.AcmeApplication;
 import com.swa.swamobileteam.di.AppScope;
 import com.swa.swamobileteam.transportApi.TransportApiClient;
 import com.swa.swamobileteam.utils.constants.AuthorizationConstants;
-import com.units.transcrypt.di.qualifiers.CommonRetrofit;
 
 import dagger.Binds;
 import dagger.Module;
@@ -31,7 +30,6 @@ public class ApplicationModule {
 
     @AppScope
     @Provides
-    @CommonRetrofit
     public Retrofit provideRetrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory, RxJava2CallAdapterFactory rxJavaCallAdapterFactory) {
         return new Retrofit.Builder()
                 .baseUrl(AuthorizationConstants.acmeApiUrl)
