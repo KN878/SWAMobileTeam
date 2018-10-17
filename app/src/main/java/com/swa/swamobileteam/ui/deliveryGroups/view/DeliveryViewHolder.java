@@ -53,7 +53,7 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
 
     @Override
     public void setParcelId(String id) {
-        parcelId.setText(id);
+        parcelId.setText(resources.getString(R.string.text_parcel_id, id));
     }
 
     @Override

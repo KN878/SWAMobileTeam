@@ -17,4 +17,12 @@ public class DeliveryPeriod {
      * The date period ends with.
      */
     private Date end;
+
+    public Date getStart() {
+        return start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
 }

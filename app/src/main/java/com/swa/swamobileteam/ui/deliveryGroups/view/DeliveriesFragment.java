@@ -64,6 +64,7 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
         AndroidSupportInjection.inject(this);
         presenter.attachView(this, true);
         setRecyclerView();
+        presenter.loadDeliveries();
     }
 
     @Override
@@ -101,5 +102,19 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
     @Override
     public void hideNoDeliveries() {
         textNoDeliveries.setVisibility(View.GONE);
+    }
+
+    @Nullable
+    @Override
+    public DeliveryType getType() {
+        if (getArguments() != null) {
+            return (DeliveryType) getArguments().getSerializable(DELIVERY_STATE);
+        }
+        return null;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        adapter.notifyDataSetChanged();
     }
 }

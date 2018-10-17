@@ -25,7 +25,7 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     private RouteRepository routeRepository;
 
     @Inject
-    public DeliveryGroupsModel() {
+    DeliveryGroupsModel() {
         this.scheduleRepository = new DeliveryScheduleRepositoryImpl();
         this.inProgressDeliveriesRepository = new InProgressDeliveriesRepositoryImpl();
         this.routeRepository = new RouteRepositoryImpl();

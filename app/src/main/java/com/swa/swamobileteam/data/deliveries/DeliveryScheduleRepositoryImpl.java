@@ -43,8 +43,8 @@ public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepositor
     }
 
     private ArrayList<DeliveriesListItem> generateData() {
-        String stringStartDate1 = "15:10:2018, 23:37";
-        String stringEndDate1 = "16:10:2018, 09:10";
+        String stringEndDate1 = "15:10:2018, 23:37";
+        String stringStartDate1 = "15:10:2018, 09:10";
         Date startDate1 = new Date();
         Date finishDate1 = new Date();
 
@@ -63,13 +63,13 @@ public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepositor
         Date startDate4 = new Date();
         Date finishDate4 = new Date();
 
-        String stringStartDate5 = "16:10:2018, 21:00";
-        String stringEndDate5 = "17:10:2018, 10:00";
+        String stringEndDate5 = "16:10:2018, 21:00";
+        String stringStartDate5 = "16:10:2018, 10:00";
         Date startDate5 = new Date();
         Date finishDate5 = new Date();
 
-        String stringStartDate6 = "16:10:2018, 21:00";
-        String stringEndDate6 = "17:10:2018, 10:00";
+        String stringEndDate6 = "17:10:2018, 21:00";
+        String stringStartDate6 = "17:10:2018, 10:00";
         Date startDate6 = new Date();
         Date finishDate6 = new Date();
 

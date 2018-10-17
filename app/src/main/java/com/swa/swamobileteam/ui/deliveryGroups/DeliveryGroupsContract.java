@@ -9,6 +9,7 @@ import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
+import com.swa.swamobileteam.utils.DeliveryType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,18 @@ public interface DeliveryGroupsContract {
          * Hides the message about absence of deliveries
          */
         void hideNoDeliveries();
+
+        /**
+         * Get type of the deliveries fragment
+         * @return delivery type
+         */
+        @Nullable
+        DeliveryType getType();
+
+        /**
+         * Notify RecyclerView's adapter that data has changed
+         */
+        void notifyDataSetChanged();
     }
     interface Presenter extends BasePresenter<View> {
         /**
@@ -47,6 +60,11 @@ public interface DeliveryGroupsContract {
          * @return number of the deliveries
          */
         int getDeliveriesCount();
+
+        /**
+         * Method to load deliveries from the model
+         */
+        void loadDeliveries();
     }
 
     interface Model extends BaseModel {
@@ -66,7 +84,7 @@ public interface DeliveryGroupsContract {
         /**
          * Refreshes list of scheduled deliveries
          */
-        public Completable refreshScheduledDeliveries();
+        Completable refreshScheduledDeliveries();
 
         /**
          * Returns delivery item given its index
@@ -78,7 +96,7 @@ public interface DeliveryGroupsContract {
         /**
          * Refreshes list of scheduled deliveries
          */
-        public Completable refreshInProgressDeliveries();
+        Completable refreshInProgressDeliveries();
 
         /**
          * Returns delivery item given its index
