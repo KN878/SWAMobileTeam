@@ -22,11 +22,11 @@ public class DeliveryDetailsPresenter implements DeliveryContract.Presenter{
 
     @Override
     public void getInfo(){
-        disposable.add(model.getDeliveryInfo(docId))
+        disposable.add(model.getDeliveryInfo())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(document -> {
-                    view.setName(deliveryInfo.getName();)
+                    view.setName(deliveryInfo.getName());
                 }
     }
 
