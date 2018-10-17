@@ -37,6 +37,7 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
     @BindView(R.id.text_no_deliveries)
     TextView textNoDeliveries;
 
+
     private Unbinder unbinder;
     private DeliveriesAdapter adapter;
 
@@ -64,7 +65,9 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
         AndroidSupportInjection.inject(this);
         presenter.attachView(this, true);
         setRecyclerView();
+        setSwipeRefreshLayout();
         presenter.loadDeliveries();
+
     }
 
     @Override
@@ -116,5 +119,18 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
     @Override
     public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void endRefreshment() {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    private void setSwipeRefreshLayout() {
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setOnRefreshListener(() -> presenter.pullToRefresh());
+        }
     }
 }

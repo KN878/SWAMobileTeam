@@ -25,7 +25,7 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
     private DeliveryGroupsContract.Model model;
     private CompositeDisposable disposable = new CompositeDisposable();
     private int deliveriesCount = 0;
-    private DateFormatter dateFormatter = new DateFormatter();
+    private boolean isRefresh = false;
 
     @Inject
     DeliveryGroupsPresenter(DeliveryGroupsContract.Model model) {
@@ -57,16 +57,25 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
                 if (view.getType().equals(DeliveryType.New)) {
                     delivery = model.getScheduledDeliveryListItem(position);
                 } else {
-                    delivery = model.getScheduledDeliveryListItem(position);
+                    delivery = model.getInProgressDeliveryListItem(position);
+                }
+
+                //Setting date divider
+                Date start = delivery.getDeliveryPeriod().getStart();
+                Date end = delivery.getDeliveryPeriod().getEnd();
+                if (needDateDivider(position, view.getType())) {
+                    deliveryView.showDateDivider(getDate(start));
+                }
+                else {
+                    deliveryView.hideDateDivider();
                 }
 
                 //Converting time
-                Date start = delivery.getDeliveryPeriod().getStart();
-                Date end = delivery.getDeliveryPeriod().getEnd();
                 deliveryView.setTimePeriod(getTime(start) + " - " + getTime(end));
                 deliveryView.setParcelId(delivery.getId());
                 deliveryView.setAddress(delivery.getAddress().getAddress());
                 deliveryView.setWeight(delivery.getWeight());
+                deliveryView.setActionButtonText(delivery.getInProgress());
                 setEstimatedTime(deliveryView, delivery.getAddress().getLocation());
             }
         }
@@ -87,9 +96,14 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     deliveriesCount -> {
+                                        Timber.d(String.valueOf(deliveriesCount));
                                         view.hideLoadingBar();
                                         if (deliveriesCount > 0) {
                                             this.deliveriesCount += deliveriesCount;
+                                            if (isRefresh) {
+                                                isRefresh = false;
+                                                view.endRefreshment();
+                                            }
                                             view.notifyDataSetChanged();
                                         } else {
                                             view.showNoDeliveries();
@@ -108,6 +122,10 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
                                         view.hideLoadingBar();
                                         if (deliveriesCount > 0) {
                                             this.deliveriesCount += deliveriesCount;
+                                            if (isRefresh) {
+                                                isRefresh = false;
+                                                view.endRefreshment();
+                                            }
                                             view.notifyDataSetChanged();
                                         } else {
                                             view.showNoDeliveries();
@@ -122,15 +140,46 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
         }
     }
 
+    @Override
+    public void pullToRefresh() {
+        deliveriesCount = 0;
+        isRefresh = true;
+        loadDeliveries();
+    }
+
     private void setEstimatedTime(DeliveryGroupsContract.DeliveryView deliveryView, Location location) {
         disposable.add(model.getETA(location)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        time -> deliveryView.setEstimatedTime(String.valueOf(time)),
+                        time -> deliveryView.setEstimatedTime(String.valueOf(Math.round(time))),
                         error -> setEstimatedTime(deliveryView, location)
                 )
         );
+    }
+
+    private String getDate(Date date) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        StringBuilder dateStr = new StringBuilder();
+
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+            dateStr.append("0").append(calendar.get(Calendar.DAY_OF_MONTH));
+        }
+        else {
+            dateStr.append(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        }
+
+        dateStr.append(".");
+        if (calendar.get(Calendar.MONTH)+1 < 10) {
+            dateStr.append("0").append(calendar.get(Calendar.MONTH)+1);
+        }
+        else {
+            dateStr.append(String.valueOf(calendar.get(Calendar.MONTH)+1));
+        }
+        dateStr.append(".");
+        dateStr.append(calendar.get(Calendar.YEAR));
+        return dateStr.toString();
     }
 
     private String getTime(Date date) {
@@ -140,14 +189,33 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
         String minutes;
         if (calendar.get(Calendar.HOUR_OF_DAY) < 10) {
             hours = "0" + calendar.get(Calendar.HOUR_OF_DAY);
-        } else {
+        }
+        else {
             hours = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
         }
         if (calendar.get(Calendar.MINUTE) < 10) {
             minutes = "0" + calendar.get(Calendar.MINUTE);
-        } else {
+        }
+        else {
             minutes = String.valueOf(calendar.get(Calendar.MINUTE));
         }
         return hours + ":" + minutes;
+    }
+
+    private boolean needDateDivider(int position, DeliveryType type) {
+        if (position == 0) {
+            return true;
+        }
+        Date dateAbove;
+        Date dateBelow;
+        if (type.equals(DeliveryType.New)) {
+            dateAbove = model.getScheduledDeliveryListItem(position - 1).getDeliveryPeriod().getStart();
+            dateBelow = model.getScheduledDeliveryListItem(position).getDeliveryPeriod().getStart();
+        }
+        else {
+            dateAbove = model.getInProgressDeliveryListItem(position - 1).getDeliveryPeriod().getStart();
+            dateBelow = model.getInProgressDeliveryListItem(position).getDeliveryPeriod().getStart();
+        }
+        return dateAbove.after(dateBelow) && !(dateAbove.getDate() == dateBelow.getDate() && dateAbove.getMonth() == dateBelow.getMonth() && dateAbove.getYear() == dateBelow.getYear());
     }
 }

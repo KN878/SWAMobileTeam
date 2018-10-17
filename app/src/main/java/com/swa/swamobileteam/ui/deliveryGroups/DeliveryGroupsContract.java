@@ -46,6 +46,11 @@ public interface DeliveryGroupsContract {
          * Notify RecyclerView's adapter that data has changed
          */
         void notifyDataSetChanged();
+
+        /**
+         * Stop refreshing animation
+         */
+        void endRefreshment();
     }
     interface Presenter extends BasePresenter<View> {
         /**
@@ -65,6 +70,11 @@ public interface DeliveryGroupsContract {
          * Method to load deliveries from the model
          */
         void loadDeliveries();
+
+        /**
+         * Refresh data
+         */
+        void pullToRefresh();
     }
 
     interface Model extends BaseModel {
@@ -119,6 +129,11 @@ public interface DeliveryGroupsContract {
     }
 
     interface DeliveryView extends BaseView{
+        /**
+         * Set action button's text to "finish" or "mark as current"
+         * @param isInProgress is this delivery in progress now
+         */
+        void setActionButtonText(boolean isInProgress);
 
         /**
          * Shows the date above the delivery

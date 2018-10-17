@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.swa.swamobileteam.R;
@@ -28,11 +29,23 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
     TextView parcelWeight;
     @BindView(R.id.text_estimated_time)
     TextView estimatedTime;
+    @BindView(R.id.button_delivery_action)
+    Button deliveryAction;
 
     public DeliveryViewHolder(@NonNull View itemView){
         super(itemView);
         ButterKnife.bind(this, itemView);
         resources = itemView.getResources();
+    }
+
+    @Override
+    public void setActionButtonText(boolean isInProgress) {
+        if (isInProgress) {
+            deliveryAction.setText(resources.getString(R.string.text_finish));
+        }
+        else {
+            deliveryAction.setText(resources.getString(R.string.text_mark_as_current));
+        }
     }
 
     @Override
@@ -74,4 +87,6 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
     public void setEstimatedTime(String time) {
         estimatedTime.setText(resources.getString(R.string.text_estimated_time, time));
     }
+
+
 }
