@@ -20,13 +20,8 @@ public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepositor
     ArrayList<DeliveriesListItem> deliveriesListItems = new ArrayList<DeliveriesListItem>();
     boolean isListUpdated = true;
 
-    DeliveryScheduleRepositoryImpl() {
+    public DeliveryScheduleRepositoryImpl() {
         deliveriesListItems = generateData();
-    }
-
-    @Override
-    public Single<ArrayList<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset, @Nullable Integer limit) {
-        return Single.just(deliveriesListItems);
     }
 
     @Override
@@ -37,8 +32,8 @@ public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepositor
     }
 
     @Override
-    public DeliveriesListItem getDeliveryListItem(int index) {
-        return deliveriesListItems.get(index);
+    public Single<DeliveriesListItem> getDeliveryListItem(int index) {
+        return Single.just(deliveriesListItems.get(index));
     }
 
     private ArrayList<DeliveriesListItem> generateData() {

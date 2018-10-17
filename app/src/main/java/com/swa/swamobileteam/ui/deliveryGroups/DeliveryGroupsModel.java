@@ -11,6 +11,7 @@ import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.data.deliveries.RouteRepository;
 import com.swa.swamobileteam.data.deliveries.RouteRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -28,16 +29,6 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     }
 
     @Override
-    public Single<List<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset, @Nullable Integer limit) {
-        return scheduleRepository.getDeliveriesSchedule(offset, limit);
-    }
-
-    @Override
-    public Single<List<DeliveriesListItem>> getInProgressDeliveries() {
-        return inProgressDeliveriesRepository.getInProgressDeliveries();
-    }
-
-    @Override
     public Completable markDeliveryAsInProgress(@NonNull String deliveryID) {
         return inProgressDeliveriesRepository.markDeliveryAsInProgress(deliveryID);
     }
@@ -45,5 +36,25 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     @Override
     public Single<Double> getETA(@NonNull Location location) {
         return routeRepository.getETA(location);
+    }
+
+    @Override
+    public Completable refreshScheduledDeliveries() {
+        return scheduleRepository.refresh();
+    }
+
+    @Override
+    public Single<DeliveriesListItem> getScheduledDeliveryListItem(int index) {
+        return scheduleRepository.getDeliveryListItem(index);
+    }
+
+    @Override
+    public Completable refreshInProgressDeliveries() {
+        return inProgressDeliveriesRepository.refresh();
+    }
+
+    @Override
+    public Single<DeliveriesListItem> getInProgressDeliveryListItem(int index) {
+        return scheduleRepository.getDeliveryListItem(index);
     }
 }
