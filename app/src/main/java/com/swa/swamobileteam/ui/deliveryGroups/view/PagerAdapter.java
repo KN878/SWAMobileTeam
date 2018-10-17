@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.swa.swamobileteam.R;
+import com.swa.swamobileteam.utils.DeliveryType;
 
 public class PagerAdapter extends FragmentPagerAdapter{
 
@@ -21,7 +22,7 @@ public class PagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int i) {
-        return new NewDeliveriesFragment();
+        return DeliveriesFragment.newInstance(DeliveryType.valueOf(i));
     }
 
     @Override
@@ -32,10 +33,6 @@ public class PagerAdapter extends FragmentPagerAdapter{
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        if (position == 0) {
-            return context.getString(R.string.text_page_new_tasks);
-        } else {
-            return context.getString(R.string.text_page_in_progress);
-        }
+        return DeliveryType.valueOf(position).toString();
     }
 }

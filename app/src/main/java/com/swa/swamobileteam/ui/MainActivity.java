@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity implements DeliveryGroupsContract.View {
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_main)
     Toolbar toolbar;
@@ -25,16 +25,12 @@ public class MainActivity extends AppCompatActivity implements DeliveryGroupsCon
     @BindView(R.id.pager)
     ViewPager viewPager;
 
-    @Inject
-    DeliveryGroupsContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        AndroidInjection.inject(this);
-        presenter.attachView(this, true);
         viewPager.setAdapter(new PagerAdapter(this, getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         setToolbar();

@@ -18,15 +18,34 @@ import io.reactivex.Single;
 public interface DeliveryGroupsContract {
 
     interface View extends BaseView {
+        /**
+         * Hides the initial loading bar
+         */
+        void hideLoadingBar();
 
+        /**
+         * Shows the message that there are no deliveries
+         */
+        void showNoDeliveries();
+
+        /**
+         * Hides the message about absence of deliveries
+         */
+        void hideNoDeliveries();
     }
-
     interface Presenter extends BasePresenter<View> {
-        DeliveryView getDeliveryViewHolder(android.view.View view);
-
+        /**
+         * Bind delivery view to the adapter
+         * @param deliveryView view to be bound
+         * @param position binding position
+         */
         void onBindDeliveryGroup(DeliveryView deliveryView, int position);
 
-        int getGroupCount();
+        /**
+         * Returns number of deliveries in the recycler view
+         * @return number of the deliveries
+         */
+        int getDeliveriesCount();
     }
 
     interface Model extends BaseModel {
@@ -57,19 +76,47 @@ public interface DeliveryGroupsContract {
         Single<Double> getETA(@NonNull Location location);
     }
 
-    interface DeliveryView {
+    interface DeliveryView extends BaseView{
+
+        /**
+         * Shows the date above the delivery
+         * @param date date of the delivery
+         */
         void showDateDivider(String date);
 
+        /**
+         * Hides the date above the delivery
+         */
         void hideDateDivider();
 
+        /**
+         * Sets the time of the delivery
+         * @param time time of the delivery
+         */
         void setTimePeriod(String time);
 
+        /**
+         * Sets parcel id of the delivery
+         * @param id identifier of the delivery
+         */
         void setParcelId(String id);
 
+        /**
+         * Sets address of the delivery
+         * @param address address of the delivery
+         */
         void setAddress(String address);
 
+        /**
+         * Sets weight of the delivery
+         * @param weight weight of the delivery
+         */
         void setWeight(Double weight);
 
+        /**
+         * Sets the estimated time of the delivery
+         * @param time estimated time of the delvery
+         */
         void setEstimatedTime(String time);
     }
 }

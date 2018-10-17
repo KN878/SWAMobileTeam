@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.swa.swamobileteam.R;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
+import com.swa.swamobileteam.utils.DeliveryType;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,9 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-public class NewDeliveriesFragment extends Fragment implements DeliveryGroupsContract.View {
+public class DeliveriesFragment extends Fragment implements DeliveryGroupsContract.View {
+
+    private static final String DELIVERY_STATE = "delivery_state";
 
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -40,6 +43,13 @@ public class NewDeliveriesFragment extends Fragment implements DeliveryGroupsCon
     @Inject
     DeliveryGroupsContract.Presenter presenter;
 
+    public static DeliveriesFragment newInstance(DeliveryType type){
+        DeliveriesFragment fragment = new DeliveriesFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(DELIVERY_STATE, type);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override

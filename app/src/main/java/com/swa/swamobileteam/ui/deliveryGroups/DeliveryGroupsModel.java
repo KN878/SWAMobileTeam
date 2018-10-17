@@ -13,6 +13,8 @@ import com.swa.swamobileteam.data.deliveries.RouteRepositoryImpl;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
@@ -21,6 +23,7 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     private InProgressDeliveriesRepository inProgressDeliveriesRepository;
     private RouteRepository routeRepository;
 
+    @Inject
     public DeliveryGroupsModel() {
         this.scheduleRepository = new DeliveryScheduleRepositoryImpl();
         this.inProgressDeliveriesRepository = new InProgressDeliveriesRepositoryImpl();
