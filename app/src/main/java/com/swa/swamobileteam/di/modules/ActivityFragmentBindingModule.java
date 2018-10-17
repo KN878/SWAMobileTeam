@@ -18,4 +18,8 @@ public abstract class ActivityFragmentBindingModule {
     @ContributesAndroidInjector(modules = {PresenterBingingModule.class, ModelBindingModule.class})
     abstract MainActivity mainActivity();
 
+    @ActivityScope
+    @ContributesAndroidInjector(modules = {PresenterBingingModule.class, ModelBindingModule.class})
+    abstract MainActivity mainActivity();
+
 }

@@ -18,7 +18,7 @@ public class AuthorizationPresenter implements AuthorizationContract.Presenter {
     private CompositeDisposable disposable = new CompositeDisposable();
 
 
-    @Inject
+    @Inject //important
     AuthorizationPresenter(AuthorizationContract.Model model) {
         this.model = model;
     }

@@ -20,4 +20,8 @@ public abstract class ModelBindingModule {
     @ActivityScope
     public abstract DeliveryGroupsContract.Model bindDelireGroupsModel(DeliveryGroupsModel model);
 
+    @Binds
+    @ActivityScope
+    public abstract DeliveryGroupsContract.Model bindDelireGroupsModel(DeliveryGroupsModel model);
+
 }

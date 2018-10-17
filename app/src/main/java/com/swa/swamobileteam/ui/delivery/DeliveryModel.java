@@ -4,6 +4,8 @@ import com.swa.swamobileteam.data.deliveries.DeliveryDetailsRepository;
 import com.swa.swamobileteam.data.deliveries.DeliveryDetailsRepositoryImpl;
 import com.swa.swamobileteam.data.deliveries.DeliveryPeriod;
 
+import javax.inject.Inject;
+
 import io.reactivex.Single;
 
 public class DeliveryModel implements DeliveryContract.Model {

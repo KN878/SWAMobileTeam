@@ -22,9 +22,7 @@ public class DeliveryInfo {
         this.isInProcess = isInProcess;
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public ParcelInfo getParcelInfo() {
         return parcelInfo;
