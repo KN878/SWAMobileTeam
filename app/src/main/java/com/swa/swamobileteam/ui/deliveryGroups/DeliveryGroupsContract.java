@@ -9,6 +9,7 @@ import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
+import com.swa.swamobileteam.ui.deliveryGroups.view.DeliveryViewHolder;
 import com.swa.swamobileteam.utils.DeliveryType;
 
 import java.util.ArrayList;
@@ -51,6 +52,11 @@ public interface DeliveryGroupsContract {
          * Stop refreshing animation
          */
         void endRefreshment();
+
+        /**
+         * Navigate to the delivery details screen
+         */
+        void navigateToDelivery(String deliveryId);
     }
     interface Presenter extends BasePresenter<View> {
         /**
@@ -175,5 +181,11 @@ public interface DeliveryGroupsContract {
          * @param time estimated time of the delvery
          */
         void setEstimatedTime(String time);
+
+        /**
+         * Sets listener to handle buttons "Finish"/"Mark as current" and "Details" clicks
+         * @param listener listener of the actions
+         */
+        void setListener(DeliveryViewHolder.OnDeliveryActionsClickListener listener);
     }
 }

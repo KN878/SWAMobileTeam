@@ -38,6 +38,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Inject
     AuthorizationContract.Presenter presenter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
