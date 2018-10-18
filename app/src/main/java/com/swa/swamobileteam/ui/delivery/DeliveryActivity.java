@@ -125,19 +125,24 @@ public class DeliveryActivity extends AppCompatActivity implements DeliveryContr
     }
 
     @Override
-    public void callClient(String phone) {
+    public void callPhone(String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
         startActivity(intent);
     }
 
     @OnClick(R.id.image_button_call)
-    public void OnCall() {
+    public void callClient() {
         presenter.callClient();
     }
 
     @OnClick(R.id.button_to_map)
     public void openMap() {
         presenter.openMap();
+    }
+
+    @OnClick(R.id.button_contact_operator)
+    public void callOperator() {
+        presenter.callOperator();
     }
 
     private void setToolbar() {

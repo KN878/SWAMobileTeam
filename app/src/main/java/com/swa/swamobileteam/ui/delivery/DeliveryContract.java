@@ -49,7 +49,7 @@ public interface DeliveryContract {
 
         void navigateToMap(Uri coordsUri);
 
-        void callClient(String phone);
+        void callPhone(String phone);
     }
 
     interface Presenter extends BasePresenter<DeliveryContract.View> {
@@ -58,6 +58,8 @@ public interface DeliveryContract {
         void openMap();
 
         void callClient();
+
+        void callOperator();
     }
 
     interface Model extends BaseModel {

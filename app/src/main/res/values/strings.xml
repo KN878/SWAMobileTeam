@@ -12,6 +12,7 @@
     <string name="text_forgot_password">Forgot your password?</string>
     <string name="text_restore"><b>Restore</b></string>
     <string name="text_sign_up"><u>SIGN UP</u></string>
+    <string name="msg_loading_dialog">Please wait, authorization is in process</string>
 
     <!-- Deliveries list -->
     <string name="text_deliveries">Deliveries</string>
@@ -29,4 +30,5 @@
     <string name="text_time_remaining">%1$d mins remaining</string>
     <string name="text_dimensions">%1$d * %2$d * %3$d</string>
     <string name="text_to_map">Open map</string>
+
 </resources>

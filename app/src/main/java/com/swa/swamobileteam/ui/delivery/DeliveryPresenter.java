@@ -19,6 +19,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class DeliveryPresenter implements DeliveryContract.Presenter{
 
+    private final String OPERATOR_PHONE_NUMBER = "+79932398037";
+
     @Nullable
     private DeliveryContract.View view;
     private DeliveryContract.Model model;
@@ -57,7 +59,14 @@ public class DeliveryPresenter implements DeliveryContract.Presenter{
     @Override
     public void callClient() {
         if (view != null) {
-            view.callClient(this.phone);
+            view.callPhone(this.phone);
+        }
+    }
+
+    @Override
+    public void callOperator() {
+        if (view != null) {
+            view.callPhone(OPERATOR_PHONE_NUMBER);
         }
     }
 
