@@ -1,5 +1,7 @@
 package com.swa.swamobileteam.ui.deliveryGroups;
 
+import android.view.View;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -7,6 +9,7 @@ import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
+import com.swa.swamobileteam.utils.DeliveryType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +20,61 @@ import io.reactivex.Single;
 public interface DeliveryGroupsContract {
 
     interface View extends BaseView {
+        /**
+         * Hides the initial loading bar
+         */
+        void hideLoadingBar();
 
+        /**
+         * Shows the message that there are no deliveries
+         */
+        void showNoDeliveries();
+
+        /**
+         * Hides the message about absence of deliveries
+         */
+        void hideNoDeliveries();
+
+        /**
+         * Get type of the deliveries fragment
+         * @return delivery type
+         */
+        @Nullable
+        DeliveryType getType();
+
+        /**
+         * Notify RecyclerView's adapter that data has changed
+         */
+        void notifyDataSetChanged();
+
+        /**
+         * Stop refreshing animation
+         */
+        void endRefreshment();
     }
-
     interface Presenter extends BasePresenter<View> {
+        /**
+         * Bind delivery view to the adapter
+         * @param deliveryView view to be bound
+         * @param position binding position
+         */
+        void onBindDeliveryGroup(DeliveryView deliveryView, int position);
 
+        /**
+         * Returns number of deliveries in the recycler view
+         * @return number of the deliveries
+         */
+        int getDeliveriesCount();
+
+        /**
+         * Method to load deliveries from the model
+         */
+        void loadDeliveries();
+
+        /**
+         * Refresh data
+         */
+        void pullToRefresh();
     }
 
     interface Model extends BaseModel {
@@ -41,7 +94,7 @@ public interface DeliveryGroupsContract {
         /**
          * Refreshes list of scheduled deliveries
          */
-        public Completable refreshScheduledDeliveries();
+        Completable refreshScheduledDeliveries();
 
         /**
          * Returns delivery item given its index
@@ -53,7 +106,7 @@ public interface DeliveryGroupsContract {
         /**
          * Refreshes list of scheduled deliveries
          */
-        public Completable refreshInProgressDeliveries();
+        Completable refreshInProgressDeliveries();
 
         /**
          * Returns delivery item given its index
@@ -73,5 +126,54 @@ public interface DeliveryGroupsContract {
          * @return
          */
         Single<Integer> loadScheduledDeliveries();
+    }
+
+    interface DeliveryView extends BaseView{
+        /**
+         * Set action button's text to "finish" or "mark as current"
+         * @param isInProgress is this delivery in progress now
+         */
+        void setActionButtonText(boolean isInProgress);
+
+        /**
+         * Shows the date above the delivery
+         * @param date date of the delivery
+         */
+        void showDateDivider(String date);
+
+        /**
+         * Hides the date above the delivery
+         */
+        void hideDateDivider();
+
+        /**
+         * Sets the time of the delivery
+         * @param time time of the delivery
+         */
+        void setTimePeriod(String time);
+
+        /**
+         * Sets parcel id of the delivery
+         * @param id identifier of the delivery
+         */
+        void setParcelId(String id);
+
+        /**
+         * Sets address of the delivery
+         * @param address address of the delivery
+         */
+        void setAddress(String address);
+
+        /**
+         * Sets weight of the delivery
+         * @param weight weight of the delivery
+         */
+        void setWeight(Double weight);
+
+        /**
+         * Sets the estimated time of the delivery
+         * @param time estimated time of the delvery
+         */
+        void setEstimatedTime(String time);
     }
 }

@@ -1,6 +1,7 @@
 package com.swa.swamobileteam.di.modules;
 
 import com.swa.swamobileteam.di.ActivityScope;
+import com.swa.swamobileteam.di.FragmentScope;
 import com.swa.swamobileteam.ui.authorization.AuthorizationContract;
 import com.swa.swamobileteam.ui.authorization.AuthorizationModel;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
@@ -17,7 +18,7 @@ public abstract class ModelBindingModule {
     public abstract AuthorizationContract.Model bindAuthorizationModel(AuthorizationModel model);
 
     @Binds
-    @ActivityScope
+    @FragmentScope
     public abstract DeliveryGroupsContract.Model bindDelireGroupsModel(DeliveryGroupsModel model);
 
 }

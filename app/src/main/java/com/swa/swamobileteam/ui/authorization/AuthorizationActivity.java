@@ -72,7 +72,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoLogin() {
         loginWrapper.setError(getString(R.string.msg_no_username));
-        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
         passwordWrapper.setErrorEnabled(true);
         passwordWrapper.setError(null);
     }
@@ -80,7 +80,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoPassword() {
         passwordWrapper.setError(getString(R.string.msg_no_password));
-        passwordWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        passwordWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
         loginWrapper.setErrorEnabled(true);
         loginWrapper.setError(null);
     }
@@ -89,7 +89,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     public void showWrongLogin() {
         passwordWrapper.setError(" ");
         loginWrapper.setError(getString(R.string.msg_wrong_username));
-        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
     }
 
     @Override

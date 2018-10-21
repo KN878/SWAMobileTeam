@@ -80,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/text_password"
-                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:imeOptions="actionDone|flagNoExtractUi"
                     android:inputType="text"
                     android:maxLines="1"
                     android:textColor="@color/colorWhite"
