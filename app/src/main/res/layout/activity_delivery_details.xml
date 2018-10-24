@@ -147,11 +147,11 @@
                     android:id="@+id/button_to_map"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_below="@id/mapView"
-                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
                     android:background="@color/colorPrimary"
+                    android:foreground="?attr/selectableItemBackground"
                     android:text="@string/text_to_map"
                     android:textColor="@color/colorWhite" />
             </RelativeLayout>
@@ -265,9 +265,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/RelativeLayoutParcelInfo"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:text="@string/text_finish"
-                android:textColor="@color/colorWhite"
-                android:backgroundTint="@color/colorPrimaryDark"/>
+                android:textColor="@color/colorWhite" />
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/button_contact_operator"
@@ -281,5 +281,4 @@
                 app:backgroundTint="@android:color/holo_orange_dark" />
         </RelativeLayout>
     </ScrollView>
-
 </LinearLayout>
