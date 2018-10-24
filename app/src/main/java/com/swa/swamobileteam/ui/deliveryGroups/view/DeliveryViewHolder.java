@@ -12,10 +12,12 @@ import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DeliveryViewHolder extends RecyclerView.ViewHolder implements DeliveryGroupsContract.DeliveryView{
 
     private Resources resources;
+    private String deliveryId;
 
     @BindView(R.id.text_date_divider)
     TextView dateDivider;
@@ -32,7 +34,9 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
     @BindView(R.id.button_delivery_action)
     Button deliveryAction;
 
-    public DeliveryViewHolder(@NonNull View itemView){
+    private OnDeliveryActionsClickListener listener;
+
+    DeliveryViewHolder(@NonNull View itemView){
         super(itemView);
         ButterKnife.bind(this, itemView);
         resources = itemView.getResources();
@@ -66,6 +70,7 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
 
     @Override
     public void setParcelId(String id) {
+        deliveryId = id;
         parcelId.setText(resources.getString(R.string.text_parcel_id, id));
     }
 
@@ -88,5 +93,19 @@ public class DeliveryViewHolder extends RecyclerView.ViewHolder implements Deliv
         estimatedTime.setText(resources.getString(R.string.text_estimated_time, time));
     }
 
+    @Override
+    public void setListener(OnDeliveryActionsClickListener listener) {
+        this.listener = listener;
+    }
 
+    @OnClick(R.id.button_details)
+    public void onDetailsCLick() {
+        listener.onDetails(this.deliveryId);
+    }
+
+    public interface OnDeliveryActionsClickListener {
+        void onDetails(String deliveryId);
+
+        void onAction(String deliveryId);
+    }
 }

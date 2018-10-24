@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.swa.swamobileteam.R;
+import com.swa.swamobileteam.ui.delivery.DeliveryActivity;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
 import com.swa.swamobileteam.utils.DeliveryType;
 
@@ -126,6 +127,11 @@ public class DeliveriesFragment extends Fragment implements DeliveryGroupsContra
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void navigateToDelivery(String deliveryId) {
+        startActivity(DeliveryActivity.newInstance(getContext(), deliveryId));
     }
 
     private void setSwipeRefreshLayout() {

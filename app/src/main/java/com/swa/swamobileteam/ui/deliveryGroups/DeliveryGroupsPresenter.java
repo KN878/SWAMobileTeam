@@ -3,6 +3,7 @@ package com.swa.swamobileteam.ui.deliveryGroups;
 import android.view.View;
 
 import com.swa.swamobileteam.data.deliveries.Location;
+import com.swa.swamobileteam.ui.deliveryGroups.view.DeliveryViewHolder;
 import com.swa.swamobileteam.utils.DateFormatter;
 import com.swa.swamobileteam.utils.DeliveryType;
 
@@ -19,7 +20,8 @@ import io.reactivex.internal.operators.single.SingleCache;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter {
+public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter,
+        DeliveryViewHolder.OnDeliveryActionsClickListener {
 
     private DeliveryGroupsContract.View view;
     private DeliveryGroupsContract.Model model;
@@ -53,6 +55,7 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
     public void onBindDeliveryGroup(DeliveryGroupsContract.DeliveryView deliveryView, int position) {
         if (view != null) {
             if (view.getType() != null) {
+                deliveryView.setListener(this);
                 DeliveriesListItem delivery;
                 if (view.getType().equals(DeliveryType.New)) {
                     delivery = model.getScheduledDeliveryListItem(position);
@@ -217,5 +220,17 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
             dateBelow = model.getInProgressDeliveryListItem(position).getDeliveryPeriod().getStart();
         }
         return dateAbove.after(dateBelow) && !(dateAbove.getDate() == dateBelow.getDate() && dateAbove.getMonth() == dateBelow.getMonth() && dateAbove.getYear() == dateBelow.getYear());
+    }
+
+    @Override
+    public void onDetails(String deliveryId) {
+        if (view != null) {
+            view.navigateToDelivery(deliveryId);
+        }
+    }
+
+    @Override
+    public void onAction(String deliveryId) {
+
     }
 }
