@@ -54,33 +54,27 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
     @Override
     public void onBindDeliveryGroup(DeliveryGroupsContract.DeliveryView deliveryView, int position) {
         if (view != null) {
-            if (view.getType() != null) {
-                deliveryView.setListener(this);
-                DeliveriesListItem delivery;
-                if (view.getType().equals(DeliveryType.New)) {
-                    delivery = model.getScheduledDeliveryListItem(position);
-                } else {
-                    delivery = model.getInProgressDeliveryListItem(position);
-                }
+            deliveryView.setListener(this);
+            DeliveriesListItem delivery;
+            delivery = model.getDeliveryListItem(view.getType(), position);
 
-                //Setting date divider
-                Date start = delivery.getDeliveryPeriod().getStart();
-                Date end = delivery.getDeliveryPeriod().getEnd();
-                if (needDateDivider(position, view.getType())) {
-                    deliveryView.showDateDivider(getDate(start));
-                }
-                else {
-                    deliveryView.hideDateDivider();
-                }
-
-                //Converting time
-                deliveryView.setTimePeriod(getTime(start) + " - " + getTime(end));
-                deliveryView.setParcelId(delivery.getId());
-                deliveryView.setAddress(delivery.getAddress().getAddress());
-                deliveryView.setWeight(delivery.getWeight());
-                deliveryView.setActionButtonText(delivery.getInProgress());
-                setEstimatedTime(deliveryView, delivery.getAddress().getLocation());
+            //Setting date divider
+            Date start = delivery.getDeliveryPeriod().getStart();
+            Date end = delivery.getDeliveryPeriod().getEnd();
+            if (needDateDivider(position, view.getType())) {
+                deliveryView.showDateDivider(getDate(start));
             }
+            else {
+                deliveryView.hideDateDivider();
+            }
+
+            //Converting time
+            deliveryView.setTimePeriod(getTime(start) + " - " + getTime(end));
+            deliveryView.setParcelId(delivery.getId());
+            deliveryView.setAddress(delivery.getAddress().getAddress());
+            deliveryView.setWeight(delivery.getWeight());
+            deliveryView.setActionButtonText(delivery.getInProgress());
+            setEstimatedTime(deliveryView, delivery.getAddress().getLocation());
         }
     }
 
@@ -92,62 +86,41 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
     @Override
     public void loadDeliveries() {
         if (view != null) {
-            if (view.getType() != null) {
-                if (view.getType().equals(DeliveryType.New)) {
-                    disposable.add(model.loadScheduledDeliveries()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    deliveriesCount -> {
-                                        Timber.d(String.valueOf(deliveriesCount));
-                                        view.hideLoadingBar();
-                                        if (deliveriesCount > 0) {
-                                            this.deliveriesCount += deliveriesCount;
-                                            if (isRefresh) {
-                                                isRefresh = false;
-                                                view.endRefreshment();
-                                            }
-                                            view.notifyDataSetChanged();
-                                        } else {
-                                            view.showNoDeliveries();
-                                        }
-                                    },
-                                    error -> loadDeliveries()
-                            )
-                    );
-                }
-                if (view.getType().equals(DeliveryType.InProgress)) {
-                    disposable.add(model.loadInProgressDeliveries()
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    deliveriesCount -> {
-                                        view.hideLoadingBar();
-                                        if (deliveriesCount > 0) {
-                                            this.deliveriesCount += deliveriesCount;
-                                            if (isRefresh) {
-                                                isRefresh = false;
-                                                view.endRefreshment();
-                                            }
-                                            view.notifyDataSetChanged();
-                                        } else {
-                                            view.showNoDeliveries();
-                                        }
-                                    },
-                                    error -> loadDeliveries()
-                            )
-                    );
-                }
-
-            }
+            disposable.add(model.loadDeliveries(view.getType())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            deliveriesCount -> {
+                                Timber.d(String.valueOf(deliveriesCount));
+                                view.hideLoadingBar();
+                                if (deliveriesCount > 0) {
+                                    this.deliveriesCount += deliveriesCount;
+                                    view.notifyDataSetChanged();
+                                } else {
+                                    view.showNoDeliveries();
+                                }
+                            },
+                            error -> loadDeliveries()
+                    )
+            );
         }
     }
 
     @Override
     public void pullToRefresh() {
-        deliveriesCount = 0;
-        isRefresh = true;
-        loadDeliveries();
+        if (view != null) {
+            disposable.add(model.refreshDeliveries(view.getType())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            (deliveriesCount) -> {
+                                this.deliveriesCount = deliveriesCount;
+                                view.endRefreshment();
+                                view.notifyDataSetChanged();
+                            }
+                    )
+            );
+        }
     }
 
     private void setEstimatedTime(DeliveryGroupsContract.DeliveryView deliveryView, Location location) {
@@ -211,14 +184,8 @@ public class DeliveryGroupsPresenter implements DeliveryGroupsContract.Presenter
         }
         Date dateAbove;
         Date dateBelow;
-        if (type.equals(DeliveryType.New)) {
-            dateAbove = model.getScheduledDeliveryListItem(position - 1).getDeliveryPeriod().getStart();
-            dateBelow = model.getScheduledDeliveryListItem(position).getDeliveryPeriod().getStart();
-        }
-        else {
-            dateAbove = model.getInProgressDeliveryListItem(position - 1).getDeliveryPeriod().getStart();
-            dateBelow = model.getInProgressDeliveryListItem(position).getDeliveryPeriod().getStart();
-        }
+        dateAbove = model.getDeliveryListItem(type, position - 1).getDeliveryPeriod().getStart();
+        dateBelow = model.getDeliveryListItem(type, position).getDeliveryPeriod().getStart();
         return dateAbove.after(dateBelow) && !(dateAbove.getDate() == dateBelow.getDate() && dateAbove.getMonth() == dateBelow.getMonth() && dateAbove.getYear() == dateBelow.getYear());
     }
 

@@ -20,7 +20,7 @@ public interface InProgressDeliveriesRepository {
     /**
      * Refreshes list of deliveries in progress
      */
-    Completable refresh();
+    Single<Integer> refresh();
 
     /**
      * Returns delivery item given its index
