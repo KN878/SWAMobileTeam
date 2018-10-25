@@ -5,6 +5,9 @@ import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 import java.util.List;
 
 public class DeliveryScheduleModel {
+    /**
+     * Delivery schedules
+     */
     private List<List<DeliveriesListItem>> results;
     private int totalCount;
 
