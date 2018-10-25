@@ -14,6 +14,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepository {
+
     @Override
     public Single<List<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset, @Nullable Integer limit) {
         List<DeliveriesListItem> deliveries = generateData();

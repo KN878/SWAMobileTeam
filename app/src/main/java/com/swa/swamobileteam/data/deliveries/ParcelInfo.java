@@ -1,6 +1,43 @@
 package com.swa.swamobileteam.data.deliveries;
 
 public class ParcelInfo {
+
+    private Double weight;
+    private Dimensions dimensions;
+    private String id;
+    private Shape shape;
+    private String description;
+
+
+
+    public String getId() {
+        return id;
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public enum Shape {
+        letter, parcel, large_envelope, postcard
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     /**
      * Information about parcel's size in meters.
      */
@@ -28,8 +65,6 @@ public class ParcelInfo {
         }
     }
 
-    private Double weight;
-    private Dimensions dimensions;
 
     public ParcelInfo(Double weight, Dimensions dimensions) {
         this.weight = weight;
