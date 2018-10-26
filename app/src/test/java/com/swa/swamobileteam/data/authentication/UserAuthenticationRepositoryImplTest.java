@@ -24,4 +24,12 @@ public class UserAuthenticationRepositoryImplTest {
         repository.authenticate("wronglogin", "wrongpassword").subscribe(observer);
         observer.assertComplete();
     }
+
+    @Test
+    public void authenticateNegative2() {
+        TestObserver<Void> observer = new TestObserver<Void>();
+        UserAuthenticationRepositoryImpl repository = new UserAuthenticationRepositoryImpl();
+        repository.authenticate("wronglogin2", "wrongpassword2").subscribe(observer);
+        observer.assertComplete();
+    }
 }
