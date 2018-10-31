@@ -4,13 +4,23 @@ import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class FinishDeliveryPresenter implements FinishDeliveryContract.Presenter {
 
     @Nullable
-    FinishDeliveryContract.View view;
+    private FinishDeliveryContract.View view;
+    private FinishDeliveryContract.Model model;
+
+    private CompositeDisposable disposable = new CompositeDisposable();
+
 
     @Inject
-    FinishDeliveryPresenter() {}
+    FinishDeliveryPresenter(FinishDeliveryContract.Model model) {
+        this.model = model;
+    }
 
     @Override
     public void attachView(FinishDeliveryContract.View view, boolean isNew) {
@@ -24,13 +34,21 @@ public class FinishDeliveryPresenter implements FinishDeliveryContract.Presenter
 
     @Override
     public void stop() {
-
+        if (disposable != null && disposable.isDisposed()) {
+            disposable.clear();
+        }
     }
 
     @Override
     public void finish() {
         if (view != null) {
-            view.navigateToDeliveriesList();
+            disposable.add(model.finishDelivery("костыль так как нет апи")
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            () -> view.navigateToDeliveriesList()
+                    )
+            );
         }
     }
 }

@@ -42,6 +42,7 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
 
     @Override
     public Completable markDeliveryAsInProgress(@NonNull String deliveryID) {
+        deliveriesListItems.remove(0);
         return Completable.complete();
     }
 

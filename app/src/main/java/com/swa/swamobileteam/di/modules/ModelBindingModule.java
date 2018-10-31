@@ -6,6 +6,8 @@ import com.swa.swamobileteam.ui.authorization.AuthorizationContract;
 import com.swa.swamobileteam.ui.authorization.AuthorizationModel;
 import com.swa.swamobileteam.ui.delivery.DeliveryContract;
 import com.swa.swamobileteam.ui.delivery.DeliveryModel;
+import com.swa.swamobileteam.ui.delivery.finishDelivery.FinishDeliveryContract;
+import com.swa.swamobileteam.ui.delivery.finishDelivery.FinishDeliveryModel;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsContract;
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveryGroupsModel;
 
@@ -26,5 +28,9 @@ public abstract class ModelBindingModule {
     @Binds
     @ActivityScope
     public abstract DeliveryContract.Model bindDeliveryModel(DeliveryModel model);
+
+    @Binds
+    @ActivityScope
+    public abstract FinishDeliveryContract.Model bindFinishDeliveryModel(FinishDeliveryModel model);
 
 }
