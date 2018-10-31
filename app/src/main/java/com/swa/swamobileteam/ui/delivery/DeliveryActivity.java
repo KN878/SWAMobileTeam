@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.swa.swamobileteam.R;
+import com.swa.swamobileteam.ui.delivery.finishDelivery.FinishDeliveryActivity;
 
 import javax.inject.Inject;
 
@@ -143,6 +144,12 @@ public class DeliveryActivity extends AppCompatActivity implements DeliveryContr
     @OnClick(R.id.button_contact_operator)
     public void callOperator() {
         presenter.callOperator();
+    }
+
+    @OnClick(R.id.FinishButton)
+    public void onFinish() {
+        Intent intent = new Intent(this, FinishDeliveryActivity.class);
+        startActivity(intent);
     }
 
     private void setToolbar() {

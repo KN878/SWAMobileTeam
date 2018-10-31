@@ -26,6 +26,9 @@
             android:name=".ui.delivery.DeliveryActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateUnchanged|adjustPan"/>
+        <activity
+            android:name=".ui.delivery.finishDelivery.FinishDeliveryActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
