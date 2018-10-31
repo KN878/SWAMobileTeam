@@ -100,38 +100,20 @@ public interface DeliveryGroupsContract {
         /**
          * Refreshes list of scheduled deliveries
          */
-        Completable refreshScheduledDeliveries();
+        Single<Integer> refreshDeliveries(DeliveryType type);
 
         /**
          * Returns delivery item given its index
          * @param index of delivery item
          * @return delivery iten on given index
          */
-        DeliveriesListItem  getScheduledDeliveryListItem(int index);
+        DeliveriesListItem  getDeliveryListItem(DeliveryType type, int index);
 
         /**
-         * Refreshes list of scheduled deliveries
-         */
-        Completable refreshInProgressDeliveries();
-
-        /**
-         * Returns delivery item given its index
-         * @param index of delivery item
-         * @return delivery iten on given index
-         */
-        DeliveriesListItem  getInProgressDeliveryListItem(int index);
-
-        /**
-         * Method loads deliveries in progress from repository and returns their count
+         * Method loads deliveries from repository and returns their count
          * @return
          */
-        Single<Integer> loadInProgressDeliveries();
-
-        /**
-         * Method loads scheduled deliveries from repository and returns their count
-         * @return
-         */
-        Single<Integer> loadScheduledDeliveries();
+        Single<Integer> loadDeliveries(DeliveryType type);
     }
 
     interface DeliveryView extends BaseView{

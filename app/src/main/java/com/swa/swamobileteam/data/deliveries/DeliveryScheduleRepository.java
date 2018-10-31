@@ -17,7 +17,7 @@ public interface DeliveryScheduleRepository {
     /**
      * Refreshes list of scheduled deliveries
      */
-    Completable refresh();
+    Single<Integer> refresh();
 
     /**
      * Returns delivery item given its index

@@ -23,10 +23,10 @@ public class InProgressDeliveriesRepositoryImpl implements InProgressDeliveriesR
     }
 
     @Override
-    public Completable refresh() {
+    public Single<Integer> refresh() {
         isListUpdated = !isListUpdated;
         deliveriesListItems = generateData();
-        return Completable.complete();
+        return Single.just(deliveriesListItems.size());
     }
 
     @Override

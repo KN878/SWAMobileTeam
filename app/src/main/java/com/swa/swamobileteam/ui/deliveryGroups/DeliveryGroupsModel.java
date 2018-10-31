@@ -10,6 +10,7 @@ import com.swa.swamobileteam.data.deliveries.InProgressDeliveriesRepositoryImpl;
 import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.data.deliveries.RouteRepository;
 import com.swa.swamobileteam.data.deliveries.RouteRepositoryImpl;
+import com.swa.swamobileteam.utils.DeliveryType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,32 +43,58 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     }
 
     @Override
-    public Completable refreshScheduledDeliveries() {
+    public Single<Integer> refreshDeliveries(DeliveryType type) {
+        if (type.equals(DeliveryType.New)) {
+            return refreshScheduledDeliveries();
+        }
+        else {
+            return refreshInProgressDeliveries();
+        }
+    }
+
+    @Override
+    public DeliveriesListItem getDeliveryListItem(DeliveryType type, int index) {
+        if (type.equals(DeliveryType.New)) {
+            return getScheduledDeliveryListItem(index);
+        }
+        else {
+            return getInProgressDeliveryListItem(index);
+        }
+    }
+
+    @Override
+    public Single<Integer> loadDeliveries(DeliveryType type) {
+        if (type.equals(DeliveryType.New)) {
+            return loadScheduledDeliveries();
+        }
+        else {
+            return loadInProgressDeliveries();
+        }
+    }
+
+
+    private Single<Integer> refreshScheduledDeliveries() {
         return scheduleRepository.refresh();
     }
 
-    @Override
-    public DeliveriesListItem getScheduledDeliveryListItem(int index) {
+    private DeliveriesListItem getScheduledDeliveryListItem(int index) {
         return scheduleRepository.getDeliveryListItem(index);
     }
 
-    @Override
-    public Completable refreshInProgressDeliveries() {
+    private Single<Integer> refreshInProgressDeliveries() {
         return inProgressDeliveriesRepository.refresh();
     }
 
-    @Override
-    public DeliveriesListItem getInProgressDeliveryListItem(int index) {
+    private DeliveriesListItem getInProgressDeliveryListItem(int index) {
         return inProgressDeliveriesRepository.getDeliveryListItem(index);
     }
 
-    @Override
-    public Single<Integer> loadInProgressDeliveries() {
+    private Single<Integer> loadInProgressDeliveries() {
         return inProgressDeliveriesRepository.loadDeliveries();
     }
 
-    @Override
-    public Single<Integer> loadScheduledDeliveries() {
+
+    private Single<Integer> loadScheduledDeliveries() {
         return scheduleRepository.loadDeliveries();
     }
 }
