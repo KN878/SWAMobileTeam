@@ -1,9 +1,13 @@
-package com.swa.swamobileteam.data.deliveries;
+package com.swa.swamobileteam.transportApi.deliveries;
+
+import com.swa.swamobileteam.data.deliveries.Address;
+import com.swa.swamobileteam.data.deliveries.DeliveryPeriod;
+import com.swa.swamobileteam.data.deliveries.HumanContacts;
 
 /**
  * Model which describes while order
  */
-public class DeliveryOrderModel {
+public class DeliveryOrderResponse {
     /**
      * Customer first and last name, phone number
      */

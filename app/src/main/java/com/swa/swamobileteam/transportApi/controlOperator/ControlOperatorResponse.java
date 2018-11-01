@@ -1,6 +1,8 @@
-package com.swa.swamobileteam.data.deliveries;
+package com.swa.swamobileteam.transportApi.controlOperator;
 
-public class ControlOperator {
+import com.swa.swamobileteam.data.deliveries.HumanContacts;
+
+public class ControlOperatorResponse {
 
     /**
      * ControlOperator id

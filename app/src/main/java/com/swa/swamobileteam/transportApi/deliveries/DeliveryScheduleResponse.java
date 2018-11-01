@@ -1,4 +1,4 @@
-package com.swa.swamobileteam.data.deliveries;
+package com.swa.swamobileteam.transportApi.deliveries;
 
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 
