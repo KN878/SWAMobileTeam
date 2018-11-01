@@ -7,6 +7,8 @@ import com.swa.swamobileteam.AcmeApplication;
 import com.swa.swamobileteam.di.AppScope;
 import com.swa.swamobileteam.transportApi.TransportApiClient;
 import com.swa.swamobileteam.utils.constants.AuthorizationConstants;
+import com.swa.swamobileteam.utils.cryptoManager.Encrypter;
+import com.swa.swamobileteam.utils.cryptoManager.KeyStorage;
 
 import dagger.Binds;
 import dagger.Module;
@@ -69,6 +71,18 @@ public class ApplicationModule {
     @Provides
     public SharedPreferences provideSharedPreferences(Context context) {
         return context.getSharedPreferences(TRANSCRYPT_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+    }
+
+    @AppScope
+    @Provides
+    public KeyStorage provideKeyStorage(Context context, SharedPreferences preferences) {
+        return new KeyStorage(context, preferences);
+    }
+
+    @AppScope
+    @Provides
+    public Encrypter provideEncrypter() {
+        return new Encrypter();
     }
 
     @Module

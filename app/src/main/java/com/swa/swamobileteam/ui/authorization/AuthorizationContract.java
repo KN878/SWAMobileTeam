@@ -21,10 +21,15 @@ public interface AuthorizationContract {
         void showWrongLogin();
 
         void successLogin();
+
+        void showLoadingDialog();
+
     }
 
     interface Presenter extends BasePresenter<AuthorizationContract.View> {
         void login();
+
+        void autoLogin();
     }
 
     /**

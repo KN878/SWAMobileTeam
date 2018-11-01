@@ -2,10 +2,12 @@ package com.swa.swamobileteam.ui.authorization;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -38,6 +40,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Inject
     AuthorizationContract.Presenter presenter;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +48,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
         ButterKnife.bind(this);
         AndroidInjection.inject(this);
         presenter.attachView(this, true);
+        presenter.autoLogin();
     }
 
     @Override
@@ -72,7 +76,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoLogin() {
         loginWrapper.setError(getString(R.string.msg_no_username));
-        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
         passwordWrapper.setErrorEnabled(true);
         passwordWrapper.setError(null);
     }
@@ -80,7 +84,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     @Override
     public void showNoPassword() {
         passwordWrapper.setError(getString(R.string.msg_no_password));
-        passwordWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        passwordWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
         loginWrapper.setErrorEnabled(true);
         loginWrapper.setError(null);
     }
@@ -89,7 +93,7 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     public void showWrongLogin() {
         passwordWrapper.setError(" ");
         loginWrapper.setError(getString(R.string.msg_wrong_username));
-        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorError));
+        loginWrapper.setErrorTextColor(ContextCompat.getColorStateList(this, R.color.colorBlack));
     }
 
     @Override
@@ -98,6 +102,29 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(R.layout.item_loading_dialog)
+                .setCancelable(false)
+                .create();
+        dialog.show();
+        //TODO only to show the auto login
+        new CountDownTimer(1500, 1000) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                //nothing
+            }
+
+            @Override
+            public void onFinish() {
+                dialog.dismiss();
+                successLogin();
+            }
+        }.start();
     }
 
     @OnClick(R.id.button_sign_in)
@@ -120,4 +147,6 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
         }
         return false;
     }
+
+
 }

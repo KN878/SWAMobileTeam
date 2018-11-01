@@ -10,8 +10,12 @@ import com.swa.swamobileteam.data.deliveries.InProgressDeliveriesRepositoryImpl;
 import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.data.deliveries.RouteRepository;
 import com.swa.swamobileteam.data.deliveries.RouteRepositoryImpl;
+import com.swa.swamobileteam.utils.DeliveryType;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -21,20 +25,11 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     private InProgressDeliveriesRepository inProgressDeliveriesRepository;
     private RouteRepository routeRepository;
 
-    public DeliveryGroupsModel() {
+    @Inject
+    DeliveryGroupsModel() {
         this.scheduleRepository = new DeliveryScheduleRepositoryImpl();
         this.inProgressDeliveriesRepository = new InProgressDeliveriesRepositoryImpl();
         this.routeRepository = new RouteRepositoryImpl();
-    }
-
-    @Override
-    public Single<List<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset, @Nullable Integer limit) {
-        return scheduleRepository.getDeliveriesSchedule(offset, limit);
-    }
-
-    @Override
-    public Single<List<DeliveriesListItem>> getInProgressDeliveries() {
-        return inProgressDeliveriesRepository.getInProgressDeliveries();
     }
 
     @Override
@@ -45,5 +40,61 @@ public class DeliveryGroupsModel implements DeliveryGroupsContract.Model {
     @Override
     public Single<Double> getETA(@NonNull Location location) {
         return routeRepository.getETA(location);
+    }
+
+    @Override
+    public Single<Integer> refreshDeliveries(DeliveryType type) {
+        if (type.equals(DeliveryType.New)) {
+            return refreshScheduledDeliveries();
+        }
+        else {
+            return refreshInProgressDeliveries();
+        }
+    }
+
+    @Override
+    public DeliveriesListItem getDeliveryListItem(DeliveryType type, int index) {
+        if (type.equals(DeliveryType.New)) {
+            return getScheduledDeliveryListItem(index);
+        }
+        else {
+            return getInProgressDeliveryListItem(index);
+        }
+    }
+
+    @Override
+    public Single<Integer> loadDeliveries(DeliveryType type) {
+        if (type.equals(DeliveryType.New)) {
+            return loadScheduledDeliveries();
+        }
+        else {
+            return loadInProgressDeliveries();
+        }
+    }
+
+
+    private Single<Integer> refreshScheduledDeliveries() {
+        return scheduleRepository.refresh();
+    }
+
+    private DeliveriesListItem getScheduledDeliveryListItem(int index) {
+        return scheduleRepository.getDeliveryListItem(index);
+    }
+
+    private Single<Integer> refreshInProgressDeliveries() {
+        return inProgressDeliveriesRepository.refresh();
+    }
+
+    private DeliveriesListItem getInProgressDeliveryListItem(int index) {
+        return inProgressDeliveriesRepository.getDeliveryListItem(index);
+    }
+
+    private Single<Integer> loadInProgressDeliveries() {
+        return inProgressDeliveriesRepository.loadDeliveries();
+    }
+
+
+    private Single<Integer> loadScheduledDeliveries() {
+        return scheduleRepository.loadDeliveries();
     }
 }

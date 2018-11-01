@@ -7,6 +7,6 @@ import io.reactivex.Single;
 public class RouteRepositoryImpl implements RouteRepository {
     @Override
     public Single<Double> getETA(@NonNull Location location) {
-        return Single.just(25.0 * 60.0);
+        return Single.just(25.0);
     }
 }
