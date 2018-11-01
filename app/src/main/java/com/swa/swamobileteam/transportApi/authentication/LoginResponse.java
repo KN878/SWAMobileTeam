@@ -1,6 +1,6 @@
 package com.swa.swamobileteam.transportApi.authentication;
 
-public class AuthenticationResponse {
+public class LoginResponse {
     private String token;
 
     public String getToken() {
