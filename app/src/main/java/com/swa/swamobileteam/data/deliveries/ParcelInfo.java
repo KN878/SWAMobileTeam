@@ -8,8 +8,6 @@ public class ParcelInfo {
     private Shape shape;
     private String description;
 
-
-
     public String getId() {
         return id;
     }
