@@ -4,7 +4,14 @@ package com.swa.swamobileteam.data.deliveries;
  * Information about a client a parcel is intended to be delivered to.
  */
 public class ClientInfo {
+    /**
+     * FirstName of client
+     */
     private String firstName;
+
+    /**
+     * LastName of client
+     */
     private String lastName;
 
     /**

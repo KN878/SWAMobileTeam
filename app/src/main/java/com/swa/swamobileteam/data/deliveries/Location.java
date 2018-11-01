@@ -1,5 +1,8 @@
 package com.swa.swamobileteam.data.deliveries;
 
+/**
+ * Location in standard form: longitude and latitude
+ */
 public class Location {
     private Double latitude;
     private Double longitude;

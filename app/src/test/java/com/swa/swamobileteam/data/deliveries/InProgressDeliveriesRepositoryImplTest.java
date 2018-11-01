@@ -27,24 +27,11 @@ public class InProgressDeliveriesRepositoryImplTest {
     }
 
     @Test
-    public void refresh() {
+    public void markDeliveryAsInProgress2() {
         TestObserver<Void> observer = new TestObserver<Void>();
         InProgressDeliveriesRepositoryImpl repository = new InProgressDeliveriesRepositoryImpl();
-        repository.refresh().subscribe(observer);
+        repository.markDeliveryAsInProgress("133456").subscribe(observer);
         observer.assertComplete();
-    }
-
-    @Test
-    public void getDeliveryListItem() {
-        ArrayList<DeliveriesListItem> generatedData = generateData();
-        InProgressDeliveriesRepositoryImpl repository = new InProgressDeliveriesRepositoryImpl();
-        assertNotNull(repository.getDeliveryListItem(0));
-    }
-
-    @Test
-    public void loadDeliveries() {
-        InProgressDeliveriesRepositoryImpl repository = new InProgressDeliveriesRepositoryImpl();
-        TestObserver<Integer> observer = repository.loadDeliveries().test().assertSubscribed();
     }
 
     private ArrayList<DeliveriesListItem> generateData() {

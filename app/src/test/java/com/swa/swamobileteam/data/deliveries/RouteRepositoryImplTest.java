@@ -17,4 +17,11 @@ public class RouteRepositoryImplTest {
         RouteRepositoryImpl repository = new RouteRepositoryImpl();
         TestObserver<Double> observer = repository.getETA(location).test().assertValue(1500.0);
     }
+
+    @Test
+    public void getETA2() {
+        Location location = new Location(125.0, 323.0);
+        RouteRepositoryImpl repository = new RouteRepositoryImpl();
+        TestObserver<Double> observer = repository.getETA(location).test().assertValue(1500.0);
+    }
 }
