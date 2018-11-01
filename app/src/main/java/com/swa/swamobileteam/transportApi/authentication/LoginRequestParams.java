@@ -1,10 +1,10 @@
 package com.swa.swamobileteam.transportApi.authentication;
 
-public class AuthenticationRequestParams {
+public class LoginRequestParams {
     private String email;
     private String password;
 
-    public AuthenticationRequestParams(String email, String password) {
+    public LoginRequestParams(String email, String password) {
         this.email = email;
         this.password = password;
     }
