@@ -1,11 +1,7 @@
 package com.swa.swamobileteam.ui.deliveryGroups;
 
-import android.view.View;
-
 import com.swa.swamobileteam.data.deliveries.Location;
 import com.swa.swamobileteam.ui.deliveryGroups.view.DeliveryViewHolder;
-import com.swa.swamobileteam.utils.DateFormatter;
-import com.swa.swamobileteam.utils.DeliveryType;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,10 +9,8 @@ import java.util.GregorianCalendar;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.internal.operators.single.SingleCache;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
