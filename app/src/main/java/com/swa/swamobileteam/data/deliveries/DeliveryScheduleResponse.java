@@ -1,15 +1,21 @@
 package com.swa.swamobileteam.data.deliveries;
 
-/**
- * Delivery schedule wrapper for server response
- */
+import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
+
+import java.util.List;
+
 public class DeliveryScheduleResponse {
     /**
-     * Delivery schedule model which describes it
+     * Delivery schedules
      */
-     private  DeliveryScheduleModel deliveryScheduleResponse;
+    private List<List<DeliveriesListItem>> results;
+    private int totalCount;
 
-    public DeliveryScheduleModel getDeliveryScheduleResponse() {
-        return deliveryScheduleResponse;
+    public int getTotalCount() {
+        return totalCount;
+    }
+
+    public List<List<DeliveriesListItem>> getResults() {
+        return results;
     }
 }
