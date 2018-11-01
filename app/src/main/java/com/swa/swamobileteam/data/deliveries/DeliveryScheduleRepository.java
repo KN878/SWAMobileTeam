@@ -4,8 +4,10 @@ import android.support.annotation.Nullable;
 
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 /**
@@ -13,11 +15,20 @@ import io.reactivex.Single;
  */
 public interface DeliveryScheduleRepository {
     /**
-     * Returns available delivery schedule.
-     * @param offset Offset, from which the returned list should start, needed for pagination.
-     *               If null, list will be returned from its beginning.
-     * @param limit Maximum amount of items to receive, needed for pagination.
+     * Refreshes list of scheduled deliveries
      */
-    Single<List<DeliveriesListItem>> getDeliveriesSchedule(@Nullable Integer offset,
-                                                           @Nullable Integer limit);
+    Single<Integer> refresh();
+
+    /**
+     * Returns delivery item given its index
+     * @param index of delivery item
+     * @return delivery iten on given index
+     */
+    DeliveriesListItem getDeliveryListItem(int index);
+
+    /**
+     * Method loads deliveries from repository and returns their count
+     * @return
+     */
+    Single<Integer> loadDeliveries();
 }
