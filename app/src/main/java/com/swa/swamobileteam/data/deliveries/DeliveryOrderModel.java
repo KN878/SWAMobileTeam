@@ -45,48 +45,24 @@ public class DeliveryOrderModel {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public int getPriority() {
         return priority;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public Address getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public HumanContacts getCustomerInfo() {
         return customerInfo;
-    }
-
-    public void setCustomerInfo(HumanContacts customerInfo) {
-        this.customerInfo = customerInfo;
     }
 
     public enum Status { in_process, pending, finished }

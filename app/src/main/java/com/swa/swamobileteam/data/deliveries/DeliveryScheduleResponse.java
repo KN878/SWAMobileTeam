@@ -12,8 +12,4 @@ public class DeliveryScheduleResponse {
     public DeliveryScheduleModel getDeliveryScheduleResponse() {
         return deliveryScheduleResponse;
     }
-
-    public void setDeliveryScheduleResponse(DeliveryScheduleModel deliveryScheduleResponse) {
-        this.deliveryScheduleResponse = deliveryScheduleResponse;
-    }
 }

@@ -12,8 +12,4 @@ public class DeliveryOrderResponse {
     public DeliveryOrderModel getDeliveryOrderresponse() {
         return deliveryOrderresponse;
     }
-
-    public void setDeliveryOrderresponse(DeliveryOrderModel deliveryOrderresponse) {
-        this.deliveryOrderresponse = deliveryOrderresponse;
-    }
 }

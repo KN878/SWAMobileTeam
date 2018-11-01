@@ -12,8 +12,4 @@ public class ControlOperatorResponse {
     public ControlOperator getOperator() {
         return operator;
     }
-
-    public void setOperator(ControlOperator operator) {
-        this.operator = operator;
-    }
 }

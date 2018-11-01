@@ -15,15 +15,7 @@ public class DeliveryScheduleModel {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
-        this.totalCount = totalCount;
-    }
-
     public List<List<DeliveriesListItem>> getResults() {
         return results;
-    }
-
-    public void setResults(List<List<DeliveriesListItem>> results) {
-        this.results = results;
     }
 }
