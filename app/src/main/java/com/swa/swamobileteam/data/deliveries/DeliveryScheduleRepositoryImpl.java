@@ -16,6 +16,19 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class DeliveryScheduleRepositoryImpl implements DeliveryScheduleRepository {
+    ArrayList<DeliveriesListItem> deliveriesListItems = new ArrayList<DeliveriesListItem>();
+    boolean isListUpdated = true;
+
+    public DeliveryScheduleRepositoryImpl() {
+        deliveriesListItems = generateData();
+    }
+
+    @Override
+    public Single<Integer> refresh() {
+        isListUpdated = !isListUpdated;
+        deliveriesListItems = generateData();
+        return Single.just(deliveriesListItems.size());
+    }
 
     @Override
     public Single<Integer> loadDeliveries() {

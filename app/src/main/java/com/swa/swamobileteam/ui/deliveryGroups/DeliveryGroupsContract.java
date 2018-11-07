@@ -1,7 +1,5 @@
 package com.swa.swamobileteam.ui.deliveryGroups;
 
-import android.view.View;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -10,10 +8,6 @@ import com.swa.swamobileteam.ui.base.BaseModel;
 import com.swa.swamobileteam.ui.base.BasePresenter;
 import com.swa.swamobileteam.ui.base.BaseView;
 import com.swa.swamobileteam.ui.deliveryGroups.view.DeliveryViewHolder;
-import com.swa.swamobileteam.utils.DeliveryType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

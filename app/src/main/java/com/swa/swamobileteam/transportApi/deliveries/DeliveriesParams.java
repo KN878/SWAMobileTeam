@@ -1,20 +1,12 @@
-package com.swa.swamobileteam.transportApi.requestParams;
-
-import com.swa.swamobileteam.utils.DeliveryType;
+package com.swa.swamobileteam.transportApi.deliveries;
 
 public class DeliveriesParams {
-    private DeliveryType type;
     private int limit;
     private int offset;
 
     private DeliveriesParams(Builder builder) {
-        this.type = builder.type;
         this.limit = builder.limit;
         this.offset = builder.offset;
-    }
-
-    public DeliveryType getType() {
-        return type;
     }
 
     public int getLimit() {
@@ -26,19 +18,12 @@ public class DeliveriesParams {
     }
 
     public static class Builder {
-        private DeliveryType type;
         private int limit;
         private int offset;
 
         public Builder(){
             this.limit = 0;
             this.offset = 0;
-            this.type = DeliveryType.New;
-        }
-
-        public Builder type(DeliveryType type) {
-            this.type = type;
-            return this;
         }
 
         public Builder limit(int limit) {

@@ -1,10 +1,10 @@
-package com.swa.swamobileteam.data.deliveries;
+package com.swa.swamobileteam.transportApi.deliveries;
 
 import com.swa.swamobileteam.ui.deliveryGroups.DeliveriesListItem;
 
 import java.util.List;
 
-public class DeliveryScheduleModel {
+public class DeliveryScheduleResponse {
     /**
      * Delivery schedules
      */
