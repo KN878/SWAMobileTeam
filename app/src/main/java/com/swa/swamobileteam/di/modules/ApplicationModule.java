@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.swa.swamobileteam.AcmeApplication;
+import com.swa.swamobileteam.data.deliveries.RouteRepositoryImpl;
 import com.swa.swamobileteam.di.AppScope;
 import com.swa.swamobileteam.transportApi.TransportApiClient;
 import com.swa.swamobileteam.utils.constants.AuthorizationConstants;
@@ -84,6 +85,14 @@ public class ApplicationModule {
     public Encrypter provideEncrypter() {
         return new Encrypter();
     }
+
+    @AppScope
+    @Provides
+    public RouteRepositoryImpl provideRouteRepositoryImpl(Context context) {
+        return new RouteRepositoryImpl(context);
+    }
+
+
 
     @Module
     public interface Declarations {
